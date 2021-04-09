@@ -47,10 +47,13 @@ if (interactive()) {
     
     server <- function(input, output, session) {
         
-        data <- reactive({
-            get(input$dataset)
-        })
-        
+        data <- read.csv(file = '/Users/jasminedogu/Documents/data/DS3002-ProjectOne/Project_One/world-happiness-report.csv')
+            
+            
+         #   reactive({
+         #   get(input$dataset)
+        #})
+    
         res_filter <- callModule(
             module = filterDF, 
             id = "filtering", 
