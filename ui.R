@@ -1,5 +1,5 @@
-# Load the ggplot2 package which provides
-# the 'mpg' dataset.
+# Elit Jasmine Dogu, ejd5mm
+# Project One DS 3002
 library(shiny)
 library(shinyWidgets)
 

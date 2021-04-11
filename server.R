@@ -1,11 +1,8 @@
-# Load the ggplot2 package which provides
-# the 'mpg' dataset.
-library(ggplot2)
+# Elit Jasmine Dogu, ejd5mm
+# Project One DS 3002
 library(dplyr)
 library(countrycode)
 library(shiny)
-
-
 
 function(input, output) {
     #reading in the data and basic data cleaning 
@@ -132,11 +129,12 @@ function(input, output) {
             paste("Please see README.md file for information regarding the dataset.") #text to display where to find more information
         })
  
+
         # Downloadable csv of selected dataset 
         output$downloadData <- downloadHandler(
             filename = function() {
-                selected <-c()
-                if (input$year != "All") {
+                selected <-c() #this assists with the name of the file
+                if (input$year != "All") { 
                     selected <-c(selected, input$year)
                 }
                 if (input$country != "All") {
@@ -152,16 +150,23 @@ function(input, output) {
                 paste0(paste(selected, collapse="-"), ".csv")
             },
             content = function(con) {
-                if (input$year != "All") {
-                    data <- df[df$Year == input$year,]
-                }
-                if (input$country != "All") {
-                    data <- df[df$Country == input$country,]
-                }
-                if (input$continent != "All") {
-                    data <- df[df$Continent == input$continent,]
-                }
-                write.csv(data, con, row.names = TRUE)
+                data <- df %>%
+                    filter(
+                        if(input$year != "All") {
+                            Year ==input$year
+                        } else {TRUE}
+                    ) %>%
+                    filter(
+                        if(input$country != "All") {
+                            Country ==input$country
+                        } else {TRUE}
+                    ) %>%
+                    filter(
+                        if(input$continent != "All") {
+                            Continent ==input$continent
+                        } else {TRUE}
+                    )
+                write.csv(data, con, row.names = TRUE) #saves the filtered data
             }
         )
 }
