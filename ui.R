@@ -1,11 +1,19 @@
 # Load the ggplot2 package which provides
 # the 'mpg' dataset.
 library(shiny)
+library(shinyWidgets)
 
 fluidPage(
     titlePanel("World Happiness Reports"),
     tags$h3("DS 3002- Project One"),
     tags$h4("Elit Dogu, ejd5mm 3rd Year UVA"),
+    # use a gradient in background
+    setBackgroundColor(  
+        #https://rdrr.io/cran/shinyWidgets/man/setBackgroundColor.html used this website for help on background color
+        color = c("#F7FBFF", "#2171B5"),
+        gradient = "radial",
+        direction = c("top", "left")
+    ),
     # Sidebar layout with input and output definitions ----
     sidebarLayout(
         
@@ -51,9 +59,7 @@ fluidPage(
     column(12,
            verbatimTextOutput("rows")
     ),
-    column(12,
-           verbatimTextOutput("rows2")
-    ),
+
     column(12,
            verbatimTextOutput("data_ex")
     )

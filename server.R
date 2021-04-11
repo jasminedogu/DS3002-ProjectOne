@@ -33,56 +33,136 @@ function(input, output) {
     
     # Filter data based on selections
     output$table <- DT::renderDataTable(DT::datatable({
-        if (input$year != "All") {
-            data <- df[df$Year == input$year,]
-        }
-        if (input$country != "All") {
-            data <- df[df$Country == input$country,]
-        }
-        if (input$continent != "All") {
-            data <- df[df$Continent == input$continent,]
-        }
+        
+        data <- df %>%
+            filter(
+                if(input$year != "All") {
+                    Year ==input$year
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$country != "All") {
+                    Country ==input$country
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$continent != "All") {
+                    Continent ==input$continent
+                } else {TRUE}
+            )
         
         return(data)
-
+        
     }))
         # Generate a summary of the dataset ----
         output$summary <- renderPrint({
-            if (input$year != "All") {
-                data <- df[df$Year == input$year,]
-                summary(data)
-            }  
-            if (input$country != "All") {
-                data <- df[df$Country == input$country,]
-                summary(data)
-            }
-            if (input$continent != "All") {
-                data <- df[df$Continent == input$continent,]
-                summary(data)
-            }
+            data <- df %>%
+                filter(
+                    if(input$year != "All") {
+                        Year ==input$year
+                    } else {TRUE}
+                ) %>%
+                filter(
+                    if(input$country != "All") {
+                        Country ==input$country
+                    } else {TRUE}
+                ) %>%
+                filter(
+                    if(input$continent != "All") {
+                        Continent ==input$continent
+                    } else {TRUE}
+                )
+            
             return(summary(data))
             
         })
+    
+    rows = function() {
+        data <- df %>%
+            filter(
+                if(input$year != "All") {
+                    Year ==input$year
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$country != "All") {
+                    Country ==input$country
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$continent != "All") {
+                    Continent ==input$continent
+                } else {TRUE}
+            )
+        
+        return(nrow(data))
+    }
+    
+    cols = function() {
+        data <- df %>%
+            filter(
+                if(input$year != "All") {
+                    Year ==input$year
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$country != "All") {
+                    Country ==input$country
+                } else {TRUE}
+            ) %>%
+            filter(
+                if(input$continent != "All") {
+                    Continent ==input$continent
+                } else {TRUE}
+            )
+        
+        return(ncol(data))
+    }
+    
         output$columns  <- renderText({
-            paste("Number of Columns:" , ncol(data) )
+            paste("Number of Columns:" , cols() )
         })
         output$rows  <- renderText({
-            paste("Number of Rows in Original Dataframe:" , nrow(data) )
+            paste("Number of Rows:" , rows() )
         })
-        output$rows2  <- renderText({
-            paste("See Directly Under the Dataframe for the Updated Number of Rows")
-        })
+
         output$data_ex  <- renderText({
             paste("Please see README.md file for information regarding the dataset.")
         })
-        
+ 
         # Downloadable csv of selected dataset ----
+        
+        
+        
         output$downloadData <- downloadHandler(
             filename = function() {
-                paste(input$data, ".csv", sep = "")
+                selected <-c()
+                if (input$year != "All") {
+                    selected <-c(selected, input$year)
+                }
+                if (input$country != "All") {
+                    selected <-c(selected, input$country)
+                }
+                if (input$continent != "All") {
+                    selected <-c(selected, input$continent)
+                }
+                if (length(selected) == 0) {
+                    selected <- c("AllData")
+                }
+                
+                paste0(paste(selected, collapse="-"), ".csv")
             },
-            content = function(file) {
-                write.csv(datasetInput(), file, row.names = TRUE)
+            content = function(con) {
+                if (input$year != "All") {
+                    data <- df[df$Year == input$year,]
+                }
+                if (input$country != "All") {
+                    data <- df[df$Country == input$country,]
+                }
+                if (input$continent != "All") {
+                    data <- df[df$Continent == input$continent,]
+                }
+                write.csv(data, con, row.names = TRUE)
             }
         )
         
