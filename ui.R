@@ -37,7 +37,7 @@ ui <- fluidPage(
                        selectInput("year",  #selection for the year variable
                                    "Year:",
                                    c("All",
-                                     unique(as.numeric(df$Year))))
+                                     unique(sort(as.numeric(df$Year)))))
                 ),
                 column(4,
                        selectInput("country",  #selection for the country variable
