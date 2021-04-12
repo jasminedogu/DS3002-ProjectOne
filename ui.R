@@ -1,11 +1,8 @@
 # Elit Jasmine Dogu, ejd5mm
 # Project One DS 3002
-#libraries
 library(shiny)
 library(shinyWidgets)
-
-#df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data, not needed since in global.R
-
+#df <- read.csv("./world-happiness-report-cleaned.csv") 
 ui <- fluidPage(
     #text with project name and my information
     titlePanel("World Happiness Report"),
@@ -31,43 +28,43 @@ ui <- fluidPage(
             # Download button
             downloadButton("downloadData", "Download")
         ),
-    # Create a new Row in the UI for selectInputs
-    # Main panel for displaying outputs ----
-    mainPanel(
-
-    fluidRow(  #manipulates the original dataframe given user selection
-        column(4,
-               selectInput("year",  #selection for the year variable
-                           "Year:",
-                           c("All",
-                             unique(as.numeric(df$Year))))
-        ),
-        column(4,
-               selectInput("country",  #selection for the country variable
-                           "Country:",
-                           c("All",
-                             unique(as.character(df$Country))))
-        ),
-        column(4,
-               selectInput("continent",  #selection for the continent variable
-                           "Continent:",
-                           c("All",
-                             unique(as.character(df$Continent))))
-        )
-    ),
-    # Create a new row for the table
-    DT::dataTableOutput("table"),
-    
-    # Create a new column for the text to be displayed
-    column(12,
-           verbatimTextOutput("columns") #column to display col count
-    ),
-    column(12,
-           verbatimTextOutput("rows") #column to display row count
-    ),
-
-    column(12,
-           verbatimTextOutput("data_ex") #column to display more information text
+        # Create a new Row in the UI for selectInputs
+        # Main panel for displaying outputs ----
+        mainPanel(
+            
+            fluidRow(  #manipulates the original dataframe given user selection
+                column(4,
+                       selectInput("year",  #selection for the year variable
+                                   "Year:",
+                                   c("All",
+                                     unique(as.numeric(df$Year))))
+                ),
+                column(4,
+                       selectInput("country",  #selection for the country variable
+                                   "Country:",
+                                   c("All",
+                                     unique(as.character(df$Country))))
+                ),
+                column(4,
+                       selectInput("continent",  #selection for the continent variable
+                                   "Continent:",
+                                   c("All",
+                                     unique(as.character(df$Continent))))
+                )
+            ),
+            # Create a new row for the table
+            DT::dataTableOutput("table"),
+            
+            # Create a new column for the text to be displayed
+            column(12,
+                   verbatimTextOutput("columns") #column to display col count
+            ),
+            column(12,
+                   verbatimTextOutput("rows") #column to display row count
+            ),
+            
+            column(12,
+                   verbatimTextOutput("data_ex") #column to display more information text
             )
         )
     )
