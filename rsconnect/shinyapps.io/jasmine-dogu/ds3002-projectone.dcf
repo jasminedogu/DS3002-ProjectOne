@@ -5,10 +5,10 @@ account: jasmine-dogu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3944825
-bundleId: 4462019
+bundleId: 4462515
 url: https://jasmine-dogu.shinyapps.io/ds3002-projectone/
-when: 1618248810.04304
-lastSyncTime: 1618248810.04306
+when: 1618256688.48082
+lastSyncTime: 1618256688.48084
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .RData|data_cleaning.R|gfortran-4.8.2-darwin13.tar.bz|LICENSE|README.md

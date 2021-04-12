@@ -5,7 +5,7 @@
 library(dplyr)
 library(countrycode)
 library(shiny)
-df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data (cleaned)
+#df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data (cleaned), not needed since in global.R
 
 server <- function(input, output) {
     # Filter data based on user selections

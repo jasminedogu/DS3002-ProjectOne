@@ -4,7 +4,7 @@
 library(shiny)
 library(shinyWidgets)
 
-df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data
+#df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data, not needed since in global.R
 
 ui <- fluidPage(
     #text with project name and my information
