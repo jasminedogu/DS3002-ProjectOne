@@ -1,33 +1,13 @@
 # Elit Jasmine Dogu, ejd5mm
 # Project One DS 3002
+
+#libraries
 library(dplyr)
 library(countrycode)
 library(shiny)
+df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data (cleaned)
 
-function(input, output) {
-    #reading in the data and basic data cleaning 
-    df <- read.csv("world-happiness-report.csv") #reading in the data
-    df <- df %>%  #changing column names 
-        rename(
-            Year = year,
-            Ladder = Life.Ladder, 
-            GDP = Log.GDP.per.capita, 
-            Social = Social.support, 
-            Life_Expectancy = Healthy.life.expectancy.at.birth,
-            Freedom = Freedom.to.make.life.choices,
-            Corruption = Perceptions.of.corruption,
-            Positive_Affect = Positive.affect,
-            Negative_Affect = Negative.affect
-        )
-    #manipulating dataset by creating a "Continent" Column from Pre-existing "Country" column 
-    df<- df %>%
-        mutate(Continent = countrycode(Country, 'country.name', 'continent')) %>%   
-        group_by(Continent)
-    
-    df <- na.omit(df)  #removing NA's
-    #View(df)
-    data<- df
-    
+server <- function(input, output) {
     # Filter data based on user selections
     output$table <- DT::renderDataTable(DT::datatable({
         data <- df %>%
@@ -126,7 +106,7 @@ function(input, output) {
         })
 
         output$data_ex  <- renderText({
-            paste("Please see README.md file for information regarding the dataset.") #text to display where to find more information
+            paste("Please see GitHub Repo for information regarding the dataset.") #text to display where to find more information
         })
  
 
@@ -149,7 +129,7 @@ function(input, output) {
                 
                 paste0(paste(selected, collapse="-"), ".csv")
             },
-            content = function(con) {
+            content = function(con) { #creates content of the csv file
                 data <- df %>%
                     filter(
                         if(input$year != "All") {

@@ -1,9 +1,12 @@
 # Elit Jasmine Dogu, ejd5mm
 # Project One DS 3002
+#libraries
 library(shiny)
 library(shinyWidgets)
 
-fluidPage(
+df <- read.csv("./world-happiness-report-cleaned.csv") #reading in the data
+
+ui <- fluidPage(
     #text with project name and my information
     titlePanel("World Happiness Report"),
     tags$h3("DS 3002- Project One"),
