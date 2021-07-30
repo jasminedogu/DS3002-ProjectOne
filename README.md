@@ -1,6 +1,9 @@
 # Looking at the World Happiness Report
 ## DS3002-Project One: Shiny App
 
+This project was awarded to be the best project in the class by the professor. 
+
+
 ### Video Demo:
 https://user-images.githubusercontent.com/60242580/114551986-1506d800-9c32-11eb-9477-f7b781733fa0.mp4
 
